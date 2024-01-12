@@ -1,0 +1,52 @@
+body {
+  background-color: hsl(47, 88%, 63%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Figtree", sans-serif;
+}
+
+.card {
+    background-color: #fcedd0;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 15px;
+    border: 1px solid #121212;
+    margin: 10px;
+    transition: all 300ms;
+    height: 650px;
+  }
+
+  .search-container {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .search-bar {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    max-width: 300px;
+    width: 70%;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.search-btn {
+    padding: 6px;
+    border-radius: 50%;
+    border: 1px solid #121212;
+    background-color: white;
+    width: 42px;
+}
+
+.search-img {
+    width: 25px;
+}
+
