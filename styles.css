@@ -6,7 +6,7 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  font-family: "Figtree", sans-serif;
+  font-family: sans-serif;
 }
 
 .card {
@@ -26,7 +26,6 @@ body {
   display: flex;
   justify-content: center;
   gap: 8px;
-  
 }
 
 .search-bar {
@@ -56,9 +55,9 @@ body {
 }
 
 .current-data {
-  max-width: 350px;
-  height: 150px;
-  background-color: #4358C7;
+  max-width: 380px;
+  height: 180px;
+  background-color: #4358c7;
   margin: 40px auto;
   border-radius: 15px;
   border: 1px solid #121212;
@@ -68,17 +67,80 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
-  max-width: 350px;
+  max-width: 380px;
   margin: 0 auto;
 }
 
-.day {
-  max-width: 170px;
+.day-info {
+  max-width: 200px;
   height: 100px;
-  background-color: #3155C8;
+  background-color: #3155c8;
   border-radius: 10px;
   border: 1px solid #121212;
 }
+
+.current-data {
+  display: flex;
+  color: white;
+  gap: 20px;
+}
+
+.main-logo {
+  width: 130px;
+  margin-top: 25px;
+  margin-left: 10px;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.place {
+  font-weight: 100;
+  font-size: 1.4rem;
+  margin: 10px 0px;
+}
+
+.day {
+  text-transform: uppercase;
+  margin: 0px 0px;
+  font-weight: 300;
+  font-size: 1.5rem;
+  letter-spacing: 0.4rem;
+}
+
+.temp {
+  font-size: 2.3rem;
+  font-weight: 400;
+  margin: 4px 0px;
+}
+
+
+.weather {
+  padding: 12px 15px;
+  background-color: hsl(47, 88%, 63%);
+  line-height: 0px;
+  border-radius: 20px;
+  width:80px;
+  margin-top: 5px;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 420px) {
   .current-data {
@@ -89,4 +151,3 @@ body {
     margin: 0px 15px;
   }
 }
-
