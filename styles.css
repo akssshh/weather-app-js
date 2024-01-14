@@ -9,9 +9,9 @@ body {
   font-family: sans-serif;
 }
 
-.card {
+.main-card {
   background-color: #fcedd0;
-  width: 90%;
+  width: 95%;
   max-width: 450px;
   border-radius: 15px;
   border: 1px solid #121212;
@@ -58,7 +58,7 @@ body {
   max-width: 380px;
   height: 180px;
   background-color: #4358c7;
-  margin: 40px auto;
+  margin: 30px auto;
   border-radius: 15px;
   border: 1px solid #121212;
 }
@@ -71,7 +71,7 @@ body {
   margin: 0 auto;
 }
 
-.day-info {
+.card {
   max-width: 200px;
   height: 100px;
   background-color: #3155c8;
@@ -82,7 +82,7 @@ body {
 .current-data {
   display: flex;
   color: white;
-  gap: 20px;
+  gap: 15px;
 }
 
 .main-logo {
@@ -100,9 +100,10 @@ body {
   font-weight: 100;
   font-size: 1.4rem;
   margin: 10px 0px;
+  text-transform: capitalize;
 }
 
-.day {
+.curr-day {
   text-transform: uppercase;
   margin: 0px 0px;
   font-weight: 300;
@@ -110,44 +111,72 @@ body {
   letter-spacing: 0.4rem;
 }
 
-.temp {
+.curr-temp {
   font-size: 2.3rem;
   font-weight: 400;
   margin: 4px 0px;
 }
 
-
-.weather {
-  padding: 12px 15px;
+.curr-weather {
+  padding: 12px ;
   background-color: hsl(47, 88%, 63%);
   line-height: 0px;
   border-radius: 20px;
-  width:80px;
+  width: 130px;
   margin-top: 5px;
   text-transform: uppercase;
   font-size: 1.2rem;
   font-weight: 500;
 }
 
+.card {
+  display: flex;
+  margin: 0;
+}
 
+.day-logo {
+  max-width: 90px;
+  padding: 8px;
+}
 
+.day-info {
+  margin-left: 10px;
+}
 
+.day {
+  text-transform: uppercase;
+  color: white;
+  margin: 8px 0px;
+}
 
+.temp {
+  color: white;
+  margin: 0px 0px;
+  font-size: 1.4rem;
+}
 
-
-
-
-
-
-
-
+.weather-condition {
+  color: white;
+  margin: 8px 0px;
+}
 
 @media (max-width: 420px) {
   .current-data {
-    margin: 40px 15px;
+    margin: 20px 15px;
   }
 
   .cards {
     margin: 0px 15px;
+  }
+  .day-logo {
+    width: 60px;
+  }
+
+  .day-info {
+    margin-left: 6px;
+  }
+  .curr-weather {
+    padding: 10px 8px ;
+    margin-right: 5px;
   }
 }

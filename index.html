@@ -11,15 +11,16 @@
     <title>Weather App</title>
   </head>
   <body>
-    <div class="card">
+    <div class="main-card">
       <div class="info">
         <div class="search-container">
           <input
             type="text"
             class="search-bar"
+            id="search-bar"
             placeholder="Enter a location..."
           />
-          <button class="search-btn">
+          <button class="search-btn" onclick={searchData()} >
             <img src="./icons/search.png" class="search-img" />
           </button>
         </div>
@@ -28,19 +29,26 @@
             <img src="./icons/cloudy.png" class="main-logo" alt="" />
           </div>
           <div class="weather-info">
-            <h3 class="place" >Melamora, Golaghat</h3>
-            <h3 class="day" >sunday</h3>
-            <h3 class="temp" >25&degC</h3>
-            <p class="weather" >Cloudy</p>
+            <h3 class="place" id="place" >Melamora</h3>
+            <h3 class="curr-day" id="curr-day" ></h3>
+            <h3 class="curr-temp" id="curr-temp" ></h3>
+            <p class="curr-weather" id="curr-weather" ></p>
           </div>
         </div>
         <div class="cards">
-          <div class="day-info"></div>
-          <div class="day-info"></div>
-          <div class="day-info"></div>
-          <div class="day-info"></div>
-          <div class="day-info"></div>
-          <div class="day-info"></div>
+          <div class="card">
+            <div class="day-info">
+              <p class="day" >monday</p>
+              <p class="temp" >25&degC</p>
+              <p class="weather-condition" >Showers</p>
+            </div>
+            <img src="./icons/sunny.png" class="day-logo" alt="">
+          </div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
         </div>
       </div>
     </div>

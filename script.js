@@ -1,6 +1,14 @@
-async function fetchGeocode() {
+function searchData() {
+  let placeName = document.getElementById("search-bar").value;
+  let place = document.getElementById('place');
+  place.textContent = placeName;
+  return placeName;
+
+}
+
+async function fetchGeocode(placeName) {
   const res = await fetch(
-    "https://maps.googleapis.com/maps/api/geocode/json?address=melamora&key=AIzaSyBkT8Xulai_tu3DEIaX-xWYXkvsHEyum-4"
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${placeName}&key=AIzaSyBkT8Xulai_tu3DEIaX-xWYXkvsHEyum-4`
   );
 
   const data = await res.json();
@@ -8,7 +16,7 @@ async function fetchGeocode() {
   const latitude = data.results[0].geometry.location.lat;
   const longitude = data.results[0].geometry.location.lng;
 
-  return { latitude, longitude }
+  return { latitude, longitude };
 }
 
 async function fetchTempData(latitude, longitude) {
@@ -20,29 +28,36 @@ async function fetchTempData(latitude, longitude) {
   return data;
 }
 
-async function logData() {
+let weatherData;
+
+async function fetchData() {
   try {
-    const { latitude, longitude } = await fetchGeocode();
+    const placeName = searchData();
+    const { latitude, longitude } = await fetchGeocode(placeName);
     const weatherData = await fetchTempData(latitude, longitude);
-    console.log(Math.round(weatherData.main.temp));
+    return weatherData;
   } catch (error) {
     console.error("Error:", error);
   }
 }
 
-logData();
+async function updateData() {
+  const currTemp = document.getElementById("curr-temp");
+  const currWeather = document.getElementById("curr-weather");
+  try {
+    const data = await fetchData();
+    currTemp.textContent = `${Math.round(data.main.temp)}°C`;
+    currWeather.textContent = data.weather[0].description;
+  } catch (error) {
+    console.log(error);
+  }
+}
+updateData();
 
-// async function updateData() {
-//   const currData = document.getElementById("temp-data")
-//   try {
-//     const data = await fetchData();
-//     // currData.textContent = data.main.temp;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+const date = new Date();
+let dayName = date.toLocaleDateString("en-US", { weekday: "long" });
 
-// updateData();
+const currDay = document.getElementById("curr-day");
+currDay.textContent = dayName;
 
-
-
+console.log(dayName);
