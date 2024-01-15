@@ -1,14 +1,6 @@
-function searchData() {
-  let placeName = document.getElementById("search-bar").value;
-  let place = document.getElementById('place');
-  place.textContent = placeName;
-  return placeName;
-
-}
-
-async function fetchGeocode(placeName) {
+async function fetchGeocode(name) {
   const res = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${placeName}&key=AIzaSyBkT8Xulai_tu3DEIaX-xWYXkvsHEyum-4`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=AIzaSyBkT8Xulai_tu3DEIaX-xWYXkvsHEyum-4`
   );
 
   const data = await res.json();
@@ -16,10 +8,14 @@ async function fetchGeocode(placeName) {
   const latitude = data.results[0].geometry.location.lat;
   const longitude = data.results[0].geometry.location.lng;
 
+  console.log(latitude, longitude);
+
   return { latitude, longitude };
 }
 
-async function fetchTempData(latitude, longitude) {
+async function fetchTempData(name) {
+  // const name = searchData();
+  const { latitude, longitude } = await fetchGeocode(name);
   const res = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=26bb0823f324a9fb0d23f5373a61429a&units=metric`
   );
@@ -28,36 +24,28 @@ async function fetchTempData(latitude, longitude) {
   return data;
 }
 
-let weatherData;
-
-async function fetchData() {
-  try {
-    const placeName = searchData();
-    const { latitude, longitude } = await fetchGeocode(placeName);
-    const weatherData = await fetchTempData(latitude, longitude);
-    return weatherData;
-  } catch (error) {
-    console.error("Error:", error);
-  }
+function searchData() {
+  let name = document.getElementById("search-bar").value;
+  let place = document.getElementById("place");
+  place.textContent = name;
+  return { name, place: place.textContent };
 }
 
 async function updateData() {
   const currTemp = document.getElementById("curr-temp");
   const currWeather = document.getElementById("curr-weather");
-  try {
-    const data = await fetchData();
-    currTemp.textContent = `${Math.round(data.main.temp)}°C`;
-    currWeather.textContent = data.weather[0].description;
-  } catch (error) {
-    console.log(error);
-  }
+
+  const { name, place } = searchData();
+
+  const data = await fetchTempData(name);
+  console.log(Math.round(data.main.temp));
+  currTemp.textContent = `${Math.round(data.main.temp)}°C`;
+  currWeather.textContent = data.weather[0].description;
+  console.log("Updated place:", place);
 }
-updateData();
 
 const date = new Date();
 let dayName = date.toLocaleDateString("en-US", { weekday: "long" });
 
 const currDay = document.getElementById("curr-day");
 currDay.textContent = dayName;
-
-console.log(dayName);
