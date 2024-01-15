@@ -49,3 +49,4 @@ let dayName = date.toLocaleDateString("en-US", { weekday: "long" });
 
 const currDay = document.getElementById("curr-day");
 currDay.textContent = dayName;
+

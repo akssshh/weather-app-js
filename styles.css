@@ -12,12 +12,12 @@ body {
 .main-card {
   background-color: #fcedd0;
   width: 95%;
-  max-width: 450px;
+  max-width: 350px;
   border-radius: 15px;
   border: 1px solid #121212;
   margin: 10px;
   transition: all 300ms;
-  height: 650px;
+  height: 500px;
 }
 
 .search-container {
@@ -26,13 +26,14 @@ body {
   display: flex;
   justify-content: center;
   gap: 8px;
+  /* width: 300px; */
 }
 
 .search-bar {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  max-width: 300px;
+  max-width: 250px;
   width: 70%;
   box-sizing: border-box;
   font-size: 18px;
@@ -55,28 +56,15 @@ body {
 }
 
 .current-data {
-  max-width: 380px;
-  height: 180px;
+  max-width: 300px;
+  height: 380px;
   background-color: #4358c7;
   margin: 30px auto;
   border-radius: 15px;
   border: 1px solid #121212;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-  max-width: 380px;
-  margin: 0 auto;
-}
-
-.card {
-  max-width: 200px;
-  height: 100px;
-  background-color: #3155c8;
-  border-radius: 10px;
-  border: 1px solid #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .current-data {
@@ -94,6 +82,7 @@ body {
 .weather-info {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .place {
@@ -118,7 +107,7 @@ body {
 }
 
 .curr-weather {
-  padding: 12px ;
+  padding: 12px;
   background-color: hsl(47, 88%, 63%);
   line-height: 0px;
   border-radius: 20px;
@@ -130,54 +119,12 @@ body {
   text-align: center;
 }
 
-.card {
-  display: flex;
-  margin: 0;
-}
-
-.day-logo {
-  max-width: 90px;
-  padding: 8px;
-}
-
-.day-info {
-  margin-left: 10px;
-}
-
-.day {
-  text-transform: uppercase;
-  color: white;
-  margin: 8px 0px;
-}
-
-.temp {
-  color: white;
-  margin: 0px 0px;
-  font-size: 1.4rem;
-}
-
-.weather-condition {
-  color: white;
-  margin: 8px 0px;
-}
-
 @media (max-width: 420px) {
   .current-data {
     margin: 20px 15px;
   }
-
-  .cards {
-    margin: 0px 15px;
-  }
-  .day-logo {
-    width: 60px;
-  }
-
-  .day-info {
-    margin-left: 6px;
-  }
   .curr-weather {
-    padding: 10px 8px ;
+    padding: 10px 8px;
     margin-right: 5px;
   }
 }
