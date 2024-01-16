@@ -24,6 +24,7 @@ async function fetchTempData(name) {
   return data;
 }
 
+
 function searchData() {
   let name = document.getElementById("search-bar").value;
   let place = document.getElementById("place");
@@ -41,7 +42,10 @@ async function updateData() {
   console.log(Math.round(data.main.temp));
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
   currWeather.textContent = data.weather[0].description;
-  console.log("Updated place:", place);
+
+  setWeatherIcon(data.weather[0].description);
+
+
 }
 
 const date = new Date();
@@ -49,4 +53,31 @@ let dayName = date.toLocaleDateString("en-US", { weekday: "long" });
 
 const currDay = document.getElementById("curr-day");
 currDay.textContent = dayName;
+
+const weatherConditions = {
+  'clear sky': '/icons/sunny.png',
+  'few clouds': '/icons/cloudy.png',
+  'scattered clouds': '/icons/cloudy.png',
+  'broken clouds': '/icons/cloudy.png',
+  'shower rain': '/icons/rainy.png',
+  'rain': '/icons/rainy.png',
+  'snowy': '/icons/snowy.png',
+  'thunderstorm': '/icons/thunderstorms.png',
+  'snow': '/icons/snowy.png',
+  'mist': '/icons/mist.png'
+};
+
+
+function setWeatherIcon(description) {
+
+  const currIcon = document.getElementById('curr-icon')
+  const iconPath = weatherConditions[description.toLowerCase()];
+
+  if (iconPath) {
+    currIcon.style.backgroundImage = `url('${iconPath}')`;
+  } else {
+    console.error(`Invalid weather description: ${description}`);
+  }
+}
+
 
