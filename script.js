@@ -33,18 +33,18 @@ function searchData() {
   return { name, place: place.textContent };
 }
 
-function clearSearchBar(){
+function clearSearchBar() {
   var searchBar = document.getElementById("search-bar");
-  searchBar.value = '';
+  searchBar.value = "";
 }
 
 async function updateData() {
   const currTemp = document.getElementById("curr-temp");
   const currWeather = document.getElementById("curr-weather");
   const currLogo = document.getElementById("main-logo");
-  const currSpeed = document.getElementById("curr-speed")
-  const currHumidity = document.getElementById("curr-humidity")
-  const currFeels = document.getElementById("curr-feels")
+  const currSpeed = document.getElementById("curr-speed");
+  const currHumidity = document.getElementById("curr-humidity");
+  const currFeels = document.getElementById("curr-feels");
 
   const { name, place } = searchData();
 
@@ -52,9 +52,9 @@ async function updateData() {
   console.log(Math.round(data.main.temp));
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
   currWeather.textContent = data.weather[0].description;
-  currSpeed.textContent = `Wind Speed: ${data.wind.speed}km/h`
-  currHumidity.textContent = `Humidity: ${data.main.humidity}%`
-  currFeels.textContent = `Feels Like: ${Math.round(data.main.feels_like)}°C`
+  currSpeed.textContent = `Wind Speed: ${data.wind.speed}km/h`;
+  currHumidity.textContent = `Humidity: ${data.main.humidity}%`;
+  currFeels.textContent = `Feels Like: ${Math.round(data.main.feels_like)}°C`;
 
   if (
     data.weather[0].description == "few clouds" ||
@@ -78,8 +78,32 @@ async function updateData() {
   }
 }
 
-const date = new Date();
-let dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+// Current Day
+const day = new Date();
+let dayName = day.toLocaleDateString("en-US", { weekday: "long" });
 
 const currDay = document.getElementById("curr-day");
 currDay.textContent = dayName;
+
+// Current Date
+const currDate = new Date();
+
+const date = currDate.getDate();
+const monthInd = currDate.getMonth();
+const year = currDate.getFullYear();
+
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+const month = months[monthInd];
+document.getElementById("curr-date").innerHTML = date + " " + month + " " + year;
+
+// Current Time
+
+const currTime = new Date();
+
+const hours = currTime.getHours();
+const minutes = currTime.getMinutes();
+
+const timeStr = currTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+
+document.getElementById("curr-time").innerHTML = timeStr;
