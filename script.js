@@ -24,7 +24,6 @@ async function fetchTempData(name) {
   return data;
 }
 
-
 function searchData() {
   let name = document.getElementById("search-bar").value;
   let place = document.getElementById("place");
@@ -35,6 +34,7 @@ function searchData() {
 async function updateData() {
   const currTemp = document.getElementById("curr-temp");
   const currWeather = document.getElementById("curr-weather");
+  const currLogo = document.getElementById("main-logo");
 
   const { name, place } = searchData();
 
@@ -43,9 +43,26 @@ async function updateData() {
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
   currWeather.textContent = data.weather[0].description;
 
-  setWeatherIcon(data.weather[0].description);
-
-
+  if (
+    data.weather[0].description == "few clouds" ||
+    data.weather[0].description == "scattered clouds" ||
+    data.weather[0].description == "broken clouds" ||
+    data.weather[0].description == "overcast clouds"
+  ) {
+    currLogo.src = "./icons/cloudy.png";
+  } else if (data.weather[0].description == "light rain") {
+    currLogo.src = "./icons/showers.png";
+  } else if (data.weather[0].description == "rain") {
+    currLogo.src = "./icons/rainy.png";
+  } else if (data.weather[0].description == "thunderstorm") {
+    currLogo.src = "./icons/thunderstorms.png";
+  } else if (data.weather[0].description == "snow") {
+    currLogo.src = "./icons/snowy.png";
+  } else if (data.weather[0].description == "mist") {
+    currLogo.src = "./icons/mist.png";
+  } else if (data.weather[0].description == "clear sky") {
+    currLogo.src = "./icons/sunny.png";
+  }
 }
 
 const date = new Date();
@@ -53,31 +70,3 @@ let dayName = date.toLocaleDateString("en-US", { weekday: "long" });
 
 const currDay = document.getElementById("curr-day");
 currDay.textContent = dayName;
-
-const weatherConditions = {
-  'clear sky': '/icons/sunny.png',
-  'few clouds': '/icons/cloudy.png',
-  'scattered clouds': '/icons/cloudy.png',
-  'broken clouds': '/icons/cloudy.png',
-  'shower rain': '/icons/rainy.png',
-  'rain': '/icons/rainy.png',
-  'snowy': '/icons/snowy.png',
-  'thunderstorm': '/icons/thunderstorms.png',
-  'snow': '/icons/snowy.png',
-  'mist': '/icons/mist.png'
-};
-
-
-function setWeatherIcon(description) {
-
-  const currIcon = document.getElementById('curr-icon')
-  const iconPath = weatherConditions[description.toLowerCase()];
-
-  if (iconPath) {
-    currIcon.style.backgroundImage = `url('${iconPath}')`;
-  } else {
-    console.error(`Invalid weather description: ${description}`);
-  }
-}
-
-

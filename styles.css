@@ -1,5 +1,5 @@
 body {
-  /* background-color: #272935; */
+  background-color: #222831;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,14 +10,15 @@ body {
 }
 
 .main-card {
-  background-color: #8fe0ff;
+  background-color: #393E46;
   width: 95%;
-  max-width: 350px;
+  max-width: 650px;
   border-radius: 15px;
   border: 1px solid #121212;
   margin: 10px;
   transition: all 300ms;
-  height: 500px;
+  padding-bottom: 20px;
+  /* height: 420px; */
 }
 
 .search-container {
@@ -26,7 +27,6 @@ body {
   display: flex;
   justify-content: center;
   gap: 8px;
-  /* width: 300px; */
 }
 
 .search-bar {
@@ -37,7 +37,6 @@ body {
   box-sizing: border-box;
   font-size: 18px;
   border: 1px solid #121212;
-  /* background-color: #50d8ea; */
 }
 
 .search-btn {
@@ -47,23 +46,10 @@ body {
   background-color: white;
   width: 42px;
   cursor: pointer;
-  /* background-color: #50d8ea; */
 }
 
 .search-img {
   width: 25px;
-}
-
-.current-data {
-  max-width: 300px;
-  height: 380px;
-  background-color: #4358c7;
-  margin: 30px auto;
-  border-radius: 15px;
-  border: 1px solid #121212;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .current-data {
@@ -76,18 +62,30 @@ body {
   width: 130px;
   margin-top: 25px;
   margin-left: 10px;
+  
 }
 
 .weather-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  row-gap: 20px;
+  margin: 0 auto;
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  font-weight: 300;
+  font-size: 1.4rem;
+  margin: 0 auto;
 }
 
 .place {
   font-weight: 100;
   font-size: 1.4rem;
-  margin: 10px 0px;
   text-transform: capitalize;
 }
 
@@ -106,15 +104,9 @@ body {
 }
 
 .curr-weather {
-  padding: 12px;
-  background-color: hsl(47, 88%, 63%);
   line-height: 0px;
-  border-radius: 20px;
-  width: 200px;
-  margin-top: 5px;
   text-transform: uppercase;
   font-size: 1.2rem;
-  font-weight: 500;
   text-align: center;
 }
 
@@ -125,5 +117,15 @@ body {
   .curr-weather {
     padding: 10px 8px;
     margin-right: 5px;
+  }
+}
+
+@media (max-width: 540px){
+   .current-data {
+    flex-direction: column;
+  }
+
+  .weather-details {
+    gap: 10px;
   }
 }
