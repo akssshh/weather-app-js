@@ -26,15 +26,25 @@ async function fetchTempData(name) {
 
 function searchData() {
   let name = document.getElementById("search-bar").value;
+
   let place = document.getElementById("place");
   place.textContent = name;
+  clearSearchBar();
   return { name, place: place.textContent };
+}
+
+function clearSearchBar(){
+  var searchBar = document.getElementById("search-bar");
+  searchBar.value = '';
 }
 
 async function updateData() {
   const currTemp = document.getElementById("curr-temp");
   const currWeather = document.getElementById("curr-weather");
   const currLogo = document.getElementById("main-logo");
+  const currSpeed = document.getElementById("curr-speed")
+  const currHumidity = document.getElementById("curr-humidity")
+  const currFeels = document.getElementById("curr-feels")
 
   const { name, place } = searchData();
 
@@ -42,6 +52,9 @@ async function updateData() {
   console.log(Math.round(data.main.temp));
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
   currWeather.textContent = data.weather[0].description;
+  currSpeed.textContent = `Wind Speed: ${data.wind.speed}km/h`
+  currHumidity.textContent = `Humidity: ${data.main.humidity}%`
+  currFeels.textContent = `Feels Like: ${Math.round(data.main.feels_like)}°C`
 
   if (
     data.weather[0].description == "few clouds" ||
