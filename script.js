@@ -19,7 +19,6 @@ async function fetchTempData(name) {
   const res = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=26bb0823f324a9fb0d23f5373a61429a&units=metric`
   );
-
   const data = await res.json();
   return data;
 }
@@ -38,6 +37,16 @@ function clearSearchBar() {
   searchBar.value = "";
 }
 
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+}
+
 async function updateData() {
   const currTemp = document.getElementById("curr-temp");
   const currWeather = document.getElementById("curr-weather");
@@ -47,6 +56,13 @@ async function updateData() {
   const currFeels = document.getElementById("curr-feels");
 
   const { name, place } = searchData();
+
+  if (!name) {
+    openModal();
+    return;
+  } else {
+    closeModal();
+  }
 
   const data = await fetchTempData(name);
   console.log(Math.round(data.main.temp));
@@ -92,10 +108,24 @@ const date = currDate.getDate();
 const monthInd = currDate.getMonth();
 const year = currDate.getFullYear();
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 const month = months[monthInd];
-document.getElementById("curr-date").innerHTML = date + " " + month + " " + year;
+document.getElementById("curr-date").innerHTML =
+  date + " " + month + " " + year;
 
 // Current Time
 
@@ -104,6 +134,10 @@ const currTime = new Date();
 const hours = currTime.getHours();
 const minutes = currTime.getMinutes();
 
-const timeStr = currTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+const timeStr = currTime.toLocaleTimeString("en-US", {
+  hour: "numeric",
+  minute: "numeric",
+  hour12: true,
+});
 
 document.getElementById("curr-time").innerHTML = timeStr;
