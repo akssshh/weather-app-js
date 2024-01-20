@@ -8,8 +8,6 @@ async function fetchGeocode(name) {
   const latitude = data.results[0].geometry.location.lat;
   const longitude = data.results[0].geometry.location.lng;
 
-  console.log(latitude, longitude);
-
   return { latitude, longitude };
 }
 
@@ -53,7 +51,6 @@ async function updateData() {
   const currLogo = document.getElementById("main-logo");
   const currSpeed = document.getElementById("curr-speed");
   const currHumidity = document.getElementById("curr-humidity");
-  const currFeels = document.getElementById("curr-feels");
 
   const { name, place } = searchData();
 
@@ -65,33 +62,31 @@ async function updateData() {
   }
 
   const data = await fetchTempData(name);
-  console.log(Math.round(data.main.temp));
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
   currWeather.textContent = data.weather[0].description;
   currSpeed.textContent = `Wind Speed: ${data.wind.speed}km/h`;
   currHumidity.textContent = `Humidity: ${data.main.humidity}%`;
-  currFeels.textContent = `Feels Like: ${Math.round(data.main.feels_like)}°C`;
 
-  if (
-    data.weather[0].description == "few clouds" ||
-    data.weather[0].description == "scattered clouds" ||
-    data.weather[0].description == "broken clouds" ||
-    data.weather[0].description == "overcast clouds"
-  ) {
-    currLogo.src = "./icons/cloudy.png";
-  } else if (data.weather[0].description == "light rain") {
-    currLogo.src = "./icons/showers.png";
-  } else if (data.weather[0].description == "rain") {
-    currLogo.src = "./icons/rainy.png";
-  } else if (data.weather[0].description == "thunderstorm") {
-    currLogo.src = "./icons/thunderstorms.png";
-  } else if (data.weather[0].description == "snow") {
-    currLogo.src = "./icons/snowy.png";
-  } else if (data.weather[0].description == "mist") {
-    currLogo.src = "./icons/mist.png";
-  } else if (data.weather[0].description == "clear sky") {
-    currLogo.src = "./icons/sunny.png";
-  }
+  // if (
+  //   data.weather[0].description == "few clouds" ||
+  //   data.weather[0].description == "scattered clouds" ||
+  //   data.weather[0].description == "broken clouds" ||
+  //   data.weather[0].description == "overcast clouds"
+  // ) {
+  //   currLogo.src = "./icons/cloudy.png";
+  // } else if (data.weather[0].description == "light rain") {
+  //   currLogo.src = "./icons/showers.png";
+  // } else if (data.weather[0].description == "rain") {
+  //   currLogo.src = "./icons/rainy.png";
+  // } else if (data.weather[0].description == "thunderstorm") {
+  //   currLogo.src = "./icons/thunderstorms.png";
+  // } else if (data.weather[0].description == "snow") {
+  //   currLogo.src = "./icons/snowy.png";
+  // } else if (data.weather[0].description == "mist") {
+  //   currLogo.src = "./icons/mist.png";
+  // } else if (data.weather[0].description == "clear sky") {
+  //   currLogo.src = "./icons/sunny.png";
+  // }
 }
 
 // Current Day
