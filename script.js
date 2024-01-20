@@ -7,31 +7,33 @@ async function fetchGeocode(name) {
     if (!res.ok) {
       throw new Error(`Failed to fetch geocode data. Status: ${res.status}`);
     }
-  
+
     const data = await res.json();
 
     if (data.results.length === 0) {
-      throw new Error(`No results found for the provided address: ${name}`);
+      throw new Error(`No data found for the provided address: ${name}`);
     }
-  
+
     const latitude = data.results[0].geometry.location.lat;
     const longitude = data.results[0].geometry.location.lng;
-  
+
     return { latitude, longitude };
   } catch (error) {
-    // alert(`Error: ${error.message}`);
-    openModal(error.message)
+    openModal(error.message);
   }
 }
 
 async function fetchTempData(name) {
-  // const name = searchData();
-  const { latitude, longitude } = await fetchGeocode(name);
-  const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=26bb0823f324a9fb0d23f5373a61429a&units=metric`
-  );
-  const data = await res.json();
-  return data;
+  try {
+    const { latitude, longitude } = await fetchGeocode(name);
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=26bb0823f324a9fb0d23f5373a61429a&units=metric`
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    openModal(error.message);
+  }
 }
 
 function searchData() {
@@ -40,7 +42,7 @@ function searchData() {
   let place = document.getElementById("place");
   place.textContent = name;
   clearSearchBar();
-  return { name, place: place.textContent };
+  return { name };
 }
 
 function clearSearchBar() {
@@ -56,7 +58,7 @@ function closeModal() {
 function openModal(error) {
   document.getElementById("myModal").style.display = "block";
   document.getElementById("overlay").style.display = "block";
-  document.getElementById('error-handle').textContent = `${error}`
+  document.getElementById("error-handle").textContent = `${error}`;
 }
 
 async function updateData() {
@@ -71,7 +73,7 @@ async function updateData() {
   if (!name) {
     openModal("Please enter a location");
     return;
-  } 
+  }
 
   const data = await fetchTempData(name);
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
@@ -110,29 +112,10 @@ currDay.textContent = dayName;
 
 // Current Date
 const currDate = new Date();
+const formattedDate = currDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
-const date = currDate.getDate();
-const monthInd = currDate.getMonth();
-const year = currDate.getFullYear();
+document.getElementById("curr-date").innerHTML = formattedDate;
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-const month = months[monthInd];
-document.getElementById("curr-date").innerHTML =
-  date + " " + month + " " + year;
 
 // Current Time
 
