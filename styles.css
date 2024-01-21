@@ -56,13 +56,14 @@ body {
   color: white;
   gap: 15px;
 }
-
-/* .main-logo {
-  width: 130px;
-  margin-top: 25px;
-  margin-left: 10px;
-  
-} */
+.temp-logo {
+  display: flex;
+  gap: 10px;
+}
+#main-logo {
+  width: 50%;
+  height: 60px;
+}
 
 .weather-info {
   display: flex;
@@ -156,7 +157,7 @@ body {
 }
 
 @media (max-width: 540px) {
-  
+
   .current-data {
     flex-direction: column;
   }

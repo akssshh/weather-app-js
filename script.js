@@ -67,6 +67,7 @@ async function updateData() {
   const currLogo = document.getElementById("main-logo");
   const currSpeed = document.getElementById("curr-speed");
   const currHumidity = document.getElementById("curr-humidity");
+  const mainLogo = document.getElementById("main-logo");
 
   const { name, place } = searchData();
 
@@ -81,26 +82,11 @@ async function updateData() {
   currSpeed.textContent = `Wind Speed: ${data.wind.speed}km/h`;
   currHumidity.textContent = `Humidity: ${data.main.humidity}%`;
 
-  // if (
-  //   data.weather[0].description == "few clouds" ||
-  //   data.weather[0].description == "scattered clouds" ||
-  //   data.weather[0].description == "broken clouds" ||
-  //   data.weather[0].description == "overcast clouds"
-  // ) {
-  //   currLogo.src = "./icons/cloudy.png";
-  // } else if (data.weather[0].description == "light rain") {
-  //   currLogo.src = "./icons/showers.png";
-  // } else if (data.weather[0].description == "rain") {
-  //   currLogo.src = "./icons/rainy.png";
-  // } else if (data.weather[0].description == "thunderstorm") {
-  //   currLogo.src = "./icons/thunderstorms.png";
-  // } else if (data.weather[0].description == "snow") {
-  //   currLogo.src = "./icons/snowy.png";
-  // } else if (data.weather[0].description == "mist") {
-  //   currLogo.src = "./icons/mist.png";
-  // } else if (data.weather[0].description == "clear sky") {
-  //   currLogo.src = "./icons/sunny.png";
-  // }
+  const iconUrl = `icons/${data.weather[0].icon}@2x.png`
+  console.log(iconUrl)
+  console.log(data.weather[0].icon)
+  mainLogo.src = iconUrl;
+
 }
 
 // Current Day
