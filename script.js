@@ -20,6 +20,7 @@ async function fetchGeocode(name) {
     return { latitude, longitude };
   } catch (error) {
     openModal(error.message);
+    throw error;
   }
 }
 
@@ -39,8 +40,13 @@ async function fetchTempData(name) {
 function searchData() {
   let name = document.getElementById("search-bar").value;
 
-  let place = document.getElementById("place");
-  place.textContent = name;
+  const geocodeData = fetchGeocode(name);
+
+  if (geocodeData && geocodeData.latitude && geocodeData.longitude) {
+    
+    let place = document.getElementById("place");
+    place.textContent = name;
+  }
   clearSearchBar();
   return { name };
 }
@@ -83,8 +89,6 @@ async function updateData() {
   currHumidity.textContent = `Humidity: ${data.main.humidity}%`;
 
   const iconUrl = `icons/${data.weather[0].icon}@2x.png`
-  console.log(iconUrl)
-  console.log(data.weather[0].icon)
   mainLogo.src = iconUrl;
 
 }
