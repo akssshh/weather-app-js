@@ -1,3 +1,5 @@
+// Fetch Latitude and Longitude
+
 async function fetchGeocode(name) {
   try {
     const res = await fetch(
@@ -18,6 +20,8 @@ async function fetchGeocode(name) {
   }
 }
 
+// Fetch weather data
+
 async function fetchTempData(name) {
   try {
     const { latitude, longitude } = await fetchGeocode(name);
@@ -30,6 +34,8 @@ async function fetchTempData(name) {
     openModal(error.message);
   }
 }
+
+// Search and Clear
 
 function searchData() {
   let name = document.getElementById("search-bar").value;
@@ -45,6 +51,8 @@ function clearSearchBar() {
   searchBar.value = "";
 }
 
+// Modal
+
 function closeModal() {
   document.getElementById("myModal").style.display = "none";
   document.getElementById("overlay").style.display = "none";
@@ -55,6 +63,8 @@ function openModal(error) {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("error-handle").textContent = `${error}`;
 }
+
+// Updating DOM
 
 async function updateData() {
   const currTemp = document.getElementById("curr-temp");
@@ -79,13 +89,7 @@ async function updateData() {
   document.getElementById("curr-date").innerHTML = result.currentDate;
   document.getElementById("curr-day").textContent = result.currentDay;
 }
-
-// Current Day
-
-// const day = new Date();
-// let dayName = day.toLocaleDateString("en-US", { weekday: "long" });
-// const currDay = document.getElementById("curr-day");
-// currDay.textContent = dayName;
+// Date and Time 
 
 async function getCurrentTime(name) {
   const { latitude, longitude } = await fetchGeocode(name);
@@ -100,12 +104,17 @@ async function getCurrentTime(name) {
     timeZone: timezone.name,
   });
 
-  const currentDate = new Date().toLocaleDateString('en-US', { timeZone: timezone.name, day: "numeric",
-  month: "short",
-  year: "numeric", });
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    timeZone: timezone.name,
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 
-  const currentDay = new Date().toLocaleDateString("en-US", { timeZone: timezone.name, weekday: "long" });
-
+  const currentDay = new Date().toLocaleDateString("en-US", {
+    timeZone: timezone.name,
+    weekday: "long",
+  });
 
   return { currentTime, currentDate, currentDay };
 }
