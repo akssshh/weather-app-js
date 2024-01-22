@@ -76,24 +76,16 @@ async function updateData() {
 
   const result = await getCurrentTime(name);
   document.getElementById("curr-time").textContent = result.currentTime;
+  document.getElementById("curr-date").innerHTML = result.currentDate;
+  document.getElementById("curr-day").textContent = result.currentDay;
 }
 
 // Current Day
 
-const day = new Date();
-let dayName = day.toLocaleDateString("en-US", { weekday: "long" });
-const currDay = document.getElementById("curr-day");
-currDay.textContent = dayName;
-
-// Current Date
-
-const currDate = new Date();
-const formattedDate = currDate.toLocaleDateString("en-US", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-});
-document.getElementById("curr-date").innerHTML = formattedDate;
+// const day = new Date();
+// let dayName = day.toLocaleDateString("en-US", { weekday: "long" });
+// const currDay = document.getElementById("curr-day");
+// currDay.textContent = dayName;
 
 async function getCurrentTime(name) {
   const { latitude, longitude } = await fetchGeocode(name);
@@ -107,5 +99,13 @@ async function getCurrentTime(name) {
   const currentTime = new Date().toLocaleTimeString("en-US", {
     timeZone: timezone.name,
   });
-  return { currentTime };
+
+  const currentDate = new Date().toLocaleDateString('en-US', { timeZone: timezone.name, day: "numeric",
+  month: "short",
+  year: "numeric", });
+
+  const currentDay = new Date().toLocaleDateString("en-US", { timeZone: timezone.name, weekday: "long" });
+
+
+  return { currentTime, currentDate, currentDay };
 }
