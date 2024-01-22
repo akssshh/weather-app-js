@@ -3,23 +3,17 @@ async function fetchGeocode(name) {
     const res = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${name}&key=AIzaSyBkT8Xulai_tu3DEIaX-xWYXkvsHEyum-4`
     );
-
     if (!res.ok) {
       throw new Error(`Failed to fetch geocode data. Status: ${res.status}`);
     }
-
     const data = await res.json();
-
     if (data.results.length === 0) {
       throw new Error(`No data found for the provided address: ${name}`);
     }
-
     const latitude = data.results[0].geometry.location.lat;
     const longitude = data.results[0].geometry.location.lng;
-
     return { latitude, longitude };
   } catch (error) {
-    openModal(error.message);
     throw error;
   }
 }
@@ -40,13 +34,8 @@ async function fetchTempData(name) {
 function searchData() {
   let name = document.getElementById("search-bar").value;
 
-  const geocodeData = fetchGeocode(name);
-
-  if (geocodeData && geocodeData.latitude && geocodeData.longitude) {
-    
-    let place = document.getElementById("place");
-    place.textContent = name;
-  }
+  let place = document.getElementById("place");
+  place.textContent = name;
   clearSearchBar();
   return { name };
 }
@@ -74,13 +63,7 @@ async function updateData() {
   const currSpeed = document.getElementById("curr-speed");
   const currHumidity = document.getElementById("curr-humidity");
   const mainLogo = document.getElementById("main-logo");
-
   const { name, place } = searchData();
-
-  if (!name) {
-    openModal("Please enter a location");
-    return;
-  }
 
   const data = await fetchTempData(name);
   currTemp.textContent = `${Math.round(data.main.temp)}°C`;
@@ -88,36 +71,41 @@ async function updateData() {
   currSpeed.textContent = `Wind Speed: ${data.wind.speed}km/h`;
   currHumidity.textContent = `Humidity: ${data.main.humidity}%`;
 
-  const iconUrl = `icons/${data.weather[0].icon}@2x.png`
+  const iconUrl = `icons/${data.weather[0].icon}@2x.png`;
   mainLogo.src = iconUrl;
 
+  const result = await getCurrentTime(name);
+  document.getElementById("curr-time").textContent = result.currentTime;
 }
 
 // Current Day
+
 const day = new Date();
 let dayName = day.toLocaleDateString("en-US", { weekday: "long" });
-
 const currDay = document.getElementById("curr-day");
 currDay.textContent = dayName;
 
 // Current Date
-const currDate = new Date();
-const formattedDate = currDate.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
+const currDate = new Date();
+const formattedDate = currDate.toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
 document.getElementById("curr-date").innerHTML = formattedDate;
 
+async function getCurrentTime(name) {
+  const { latitude, longitude } = await fetchGeocode(name);
+  const apiUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&format=json&apiKey=f6d7dcdcd38c4a74977da0c3fb75f92a`;
 
-// Current Time
+  const response = await fetch(apiUrl);
+  const data = await response.json();
 
-const currTime = new Date();
+  const timezone = data.results[0].timezone;
 
-const hours = currTime.getHours();
-const minutes = currTime.getMinutes();
-
-const timeStr = currTime.toLocaleTimeString("en-US", {
-  hour: "numeric",
-  minute: "numeric",
-  hour12: true,
-});
-
-document.getElementById("curr-time").innerHTML = timeStr;
+  const currentTime = new Date().toLocaleTimeString("en-US", {
+    timeZone: timezone.name,
+  });
+  return { currentTime };
+}
